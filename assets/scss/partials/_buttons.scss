@@ -1,0 +1,90 @@
+.theme-btn {
+  position: relative;
+  border-radius: 12px;
+  padding: 2px;
+  color: #fafafa;
+  width: 100%;
+  font-size: 1.3rem;
+  &:before {
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(to left, transparent, transparent);
+    height: calc(100% + 2px);
+    width: calc(100% + 2px);
+    top: calc(50% + 0px);
+    left: calc(50% + 0px);
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+  }
+  &:hover {
+    &:before {
+      background-image: linear-gradient(to left, #fdb302, #0740a9);
+    }
+  }
+  .vs-button__content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #0a082f!important;
+     border-radius: 12px;
+    overflow: hidden;
+    &:hover {
+      background: #151358!important;
+    }
+  }
+  background: #0a082f!important;
+  &:hover {
+    background: #151358!important;
+  }
+}
+
+.def-btn {
+  background: #0a082f!important;
+  &:hover {
+    background: #151358!important;
+  }
+}
+
+.profile-btn {
+  font-size: 1.5rem;
+  color: #fdb302;
+}
+
+.vs-button {
+  margin: 0;
+  &.img-btn {
+    background:transparent;
+    border-radius: 35%;
+    .vs-button__content {
+      padding: 0;
+      background:transparent;
+    }
+  }
+}
+
+.btc-btn {
+  &:hover {
+    box-shadow: 0px 10px 20px -10px #f69119;
+  }
+}
+
+.eth-btn {
+  &:hover {
+    box-shadow: 0px 10px 20px -10px #50599c;
+  }
+}
+
+.ltc-btn {
+  &:hover {
+    box-shadow: 0px 10px 20px -10px #838383;
+  }
+}
+
+.dash-btn {
+  &:hover {
+    box-shadow: 0px 10px 20px -10px #018ee3;
+  }
+}

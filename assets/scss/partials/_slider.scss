@@ -1,0 +1,21 @@
+.slider {
+  .uk-slideshow-items {
+    min-height: 12rem!important;
+    max-height: 12rem;
+    & > * {
+      border-radius: 12px;
+      background-image: url('~/assets/img/slideBg.png');
+      background-size: 100% 100%;
+      & > div {
+        height: 100%;
+        width: 100%;
+        display:  flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .slide-img {
+      height: 75%;
+    }
+  }
+}

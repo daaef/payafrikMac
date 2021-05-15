@@ -1,0 +1,50 @@
+{
+  "name": "payafrik-last",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint": "yarn lint:js"
+  },
+  "dependencies": {
+    "@nuxtjs/auth-next": "5.0.0-1618898588.9655d0e",
+    "@nuxtjs/axios": "^5.13.1",
+    "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/pwa": "^3.3.5",
+    "@vee-validate/rules": "^4.1.20",
+    "boxicons": "^2.0.7",
+    "chart.js": "^3.2.1",
+    "core-js": "^3.9.1",
+    "nuxt": "^2.15.3",
+    "nuxt-highcharts": "^1.0.7",
+    "nuxt-validate": "^1.0.1",
+    "primeflex": "^2.0.0",
+    "primeicons": "^4.1.0",
+    "primevue": "^2.4.1",
+    "uikit": "^3.6.20",
+    "vue-image-crop-upload": "^3.0.3",
+    "vue-trend-chart": "^0.15.3",
+    "vue2-perfect-scrollbar": "^1.5.0",
+    "vuelidate": "^0.7.6",
+    "vuesax": "^4.0.1-alpha.25"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^6.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "fibers": "^5.0.0",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.11",
+    "sass-loader": "^10.1.1",
+    "webpack": "^4.44.2"
+  }
+}

@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Avenir Light";
+  font-display: fallback;
+  src: url("../fonts/avenir-light/avenir-light.eot");
+  src: url("../fonts/avenir-light/avenir-light.eot?#iefix") format("embedded-opentype"), url("../fonts/avenir-light/avenir-light.woff2") format("woff2"), url("../fonts/avenir-light/avenir-light.woff") format("woff"), url("../fonts/avenir-light/avenir-light.ttf") format("truetype"), url("../fonts/avenir-light/avenir-light.svg#Avenir Light") format("svg")
+}
+
+@font-face {
+  font-family: "Avenir Medium";
+  font-display: fallback;
+  src: url("../fonts/avenir-medium/avenir-medium.eot");
+  src: url("../fonts/avenir-medium/avenir-medium.eot?#iefix") format("embedded-opentype"), url("../fonts/avenir-medium/avenir-medium.woff2") format("woff2"), url("../fonts/avenir-medium/avenir-medium.woff") format("woff"), url("../fonts/avenir-medium/avenir-medium.ttf") format("truetype"), url("../fonts/avenir-medium/avenir-medium.svg#Avenir Light") format("svg")
+}
+
+@font-face {
+  font-family: "American Typewriter";
+  font-display: fallback;
+  src: url("../fonts/american-typewriter/american-typewriter.eot");
+  src: url("../fonts/american-typewriter/american-typewriter.eot?#iefix") format("embedded-opentype"), url("../fonts/american-typewriter/american-typewriter.woff2") format("woff2"), url("../fonts/american-typewriter/american-typewriter.woff") format("woff"), url("../fonts/american-typewriter/american-typewriter.ttf") format("truetype"), url("../fonts/american-typewriter/american-typewriter.svg#Avenir Light") format("svg")
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Avenir Light", sans-serif;
+  outline: none !important;
+  text-rendering: optimizeLegibility;
+  color-rendering: optimizeQuality;
+}
+html {
+  font-size: 16px;
+  @media (max-width: 1366px) {
+    font-size: 13px!important;
+  }
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  font-family: "Avenir Medium", sans-serif
+}
+
+a:link, a:hover, a:active, a:visited {
+  text-decoration: none
+}
+
+body {
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100vh;
+  background-image: url(~assets/img/app_bg.jpg);
+}
+
+ul {
+  list-style-type: none
+}
