@@ -53,7 +53,7 @@
             name="number"
             placeholder="Phone Number"
           />
-          <span class="err-msg">{{ errors.first("number") }}</span>
+          <span class="err-msg">{{ errors.first('number') }}</span>
         </div>
         <span v-if="!resendCode">
           <div class="p-inputgroup uk-margin-bottom">
@@ -67,7 +67,7 @@
               name="pin"
               :feedback="false"
             />
-            <span class="err-msg">{{ errors.first("pin") }}</span>
+            <span class="err-msg">{{ errors.first('pin') }}</span>
           </div>
           <div class="p-inputgroup uk-margin-bottom">
             <span class="p-inputgroup-addon">
@@ -80,7 +80,7 @@
               name="code"
               placeholder="Verification code sent to you"
             />
-            <span class="err-msg">{{ errors.first("code") }}</span>
+            <span class="err-msg">{{ errors.first('code') }}</span>
           </div>
         </span>
         <div class="uk-margin-top">
@@ -108,149 +108,149 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+  import { mapGetters } from 'vuex'
 
-export default {
-  name: "Index",
-  layout: "auth",
-  auth: "guest",
-  data() {
-    return {
-      number: "",
-      selectedCountry: {
-        name: "Nigeria",
-        flag:
-          "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg",
-        number: "234",
+  export default {
+    name: 'Index',
+    layout: 'auth',
+    auth: 'guest',
+    data() {
+      return {
+        number: '',
+        selectedCountry: {
+          name: 'Nigeria',
+          flag:
+            'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
+          number: '234',
+        },
+        pin: '',
+        vercode: '',
+        baseUrl: process.env.baseUrl,
+        resendCode: false,
+        processing: false,
+      }
+    },
+    computed: {
+      fullUser() {
+        return `${this.selectedCountry.number}${
+          this.number[0] === '0' ? this.number.slice(1) : this.number
+        }`
       },
-      pin: "",
-      vercode: "",
-      baseUrl: process.env.baseUrl,
-      resendCode: false,
-      processing: false,
-    };
-  },
-  computed: {
-    fullUser() {
-      return `${this.selectedCountry.number}${
-        this.number[0] === "0" ? this.number.slice(1) : this.number
-      }`;
+      ...mapGetters({
+        countryCodes: 'countryCodes',
+      }),
     },
-    ...mapGetters({
-      countryCodes: "countryCodes",
-    }),
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$nuxt.$loading.finish();
-    }, 700);
-  },
-  beforeDestroy() {
-    this.$nuxt.$loading.start();
-  },
-  methods: {
-    toggleRes(action) {
-      this.resendCode = action;
+    mounted() {
+      setTimeout(() => {
+        this.$nuxt.$loading.finish()
+      }, 700)
     },
-    async resendOTP() {
-      console.log("resending");
-      if (this.errors.items.length === 0) {
-        const payload = {
-          username: this.fullUser,
-        };
-        console.log(payload);
+    beforeDestroy() {
+      this.$nuxt.$loading.start()
+    },
+    methods: {
+      toggleRes(action) {
+        this.resendCode = action
+      },
+      async resendOTP() {
+        console.log('resending')
+        if (this.errors.items.length === 0) {
+          const payload = {
+            username: this.fullUser,
+          }
+          console.log(payload)
 
-        const headers = {
-          "Content-Type": "application/json",
-          "X-PFK-DT": "B",
-        };
+          const headers = {
+            'Content-Type': 'application/json',
+            'X-PFK-DT': 'B',
+          }
 
-        try {
-          const resendResponse = await this.$axios.$post(
-            `${this.baseUrl}auth/accounts/resend-otp/`,
-            payload,
-            { headers }
-          );
-          console.log(resendResponse);
-          /*
+          try {
+            const resendResponse = await this.$axios.$post(
+              `${this.baseUrl}auth/accounts/resend-otp/`,
+              payload,
+              { headers }
+            )
+            console.log(resendResponse)
+            /*
           this.$vs.notification({
             key: 'updatable',
             message: 'Success!',
             description: 'Activation code resent, please try again',
             duration: 0,
           }) */
-          this.$vs.notification({
-            color: "success",
-            position: "top-right",
-            title: "Success!",
-            text: `${resendResponse.msg}`,
-          });
-          this.resendCode = false;
-          this.processing = false;
-        } catch (e) {
-          console.log(JSON.stringify(e));
-          this.$vs.notification({
-            color: "danger",
-            position: "top-right",
-            title: "Error!",
-            text: `${e.response.data.msg}`,
-          });
-          this.processing = false;
+            this.$vs.notification({
+              color: 'success',
+              position: 'top-right',
+              title: 'Success!',
+              text: `${resendResponse.msg}`,
+            })
+            this.resendCode = false
+            this.processing = false
+          } catch (e) {
+            console.log(JSON.stringify(e))
+            this.$vs.notification({
+              color: 'danger',
+              position: 'top-right',
+              title: 'Error!',
+              text: `${e.response.data.msg}`,
+            })
+            this.processing = false
+          }
         }
-      }
-    },
-    async verifyPhone() {
-      await this.$validator.validateAll();
-      this.processing = true;
-      if (this.resendCode) {
-        await this.resendOTP();
-      } else if (this.errors.items.length === 0) {
-        const payload = {
-          username: this.fullUser,
-          password: this.pin,
-          nonce: this.vercode,
-        };
-        console.log(payload);
+      },
+      async verifyPhone() {
+        await this.$validator.validateAll()
+        this.processing = true
+        if (this.resendCode) {
+          await this.resendOTP()
+        } else if (this.errors.items.length === 0) {
+          const payload = {
+            username: this.fullUser,
+            password: this.pin,
+            nonce: this.vercode,
+          }
+          console.log(payload)
 
-        const headers = {
-          "Content-Type": "application/json",
-          "X-PFK-DT": "B",
-        };
+          const headers = {
+            'Content-Type': 'application/json',
+            'X-PFK-DT': 'B',
+          }
 
-        try {
-          await this.$axios.$post(
-            this.baseUrl + "auth/accounts/verify-phone/",
-            payload,
-            { headers }
-          );
+          try {
+            await this.$axios.$post(
+              this.baseUrl + 'auth/accounts/verify-phone/',
+              payload,
+              { headers }
+            )
 
-          // this.authenticate(signInResponse)
-          this.$vs.notification({
-            color: "success",
-            position: "top-right",
-            title: "Success!",
-            text: "Account activated successfully, you can now log in.",
-          });
-          await this.$router.push("/auth/login");
-          // this.processing = false;
-        } catch (e) {
-          console.log(JSON.stringify(e));
-          this.$vs.notification({
-            color: "danger",
-            position: "top-right",
-            title: "Error!",
-            text: `${e.response.data.msg}`,
-          });
-          this.processing = false;
+            // this.authenticate(signInResponse)
+            this.$vs.notification({
+              color: 'success',
+              position: 'top-right',
+              title: 'Success!',
+              text: 'Account activated successfully, you can now log in.',
+            })
+            await this.$router.push('/auth/login')
+            // this.processing = false;
+          } catch (e) {
+            console.log(JSON.stringify(e))
+            this.$vs.notification({
+              color: 'danger',
+              position: 'top-right',
+              title: 'Error!',
+              text: `${e.response.data.msg}`,
+            })
+            this.processing = false
+          }
+          this.processing = false
         }
-        this.processing = false;
-      }
+      },
+      to() {
+        this.$router.go(-1)
+      },
     },
-    to() {
-      this.$router.go(-1);
-    },
-  },
-};
+  }
 </script>
 
 <style scoped></style>

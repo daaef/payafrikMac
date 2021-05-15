@@ -83,73 +83,73 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+  import { mapGetters } from 'vuex'
 
-export default {
-  name: "Login",
-  layout: "auth",
-  auth: "guest",
-  data() {
-    return {
-      username: "",
-      selectedCountry: {
-        name: "Nigeria",
-        flag:
-          "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg",
-        number: "234",
-      },
-      loggingIn: false,
-      pass: "",
-    };
-  },
-  computed: {
-    fullUser() {
-      return `${this.selectedCountry.number}${
-        this.username[0] === "0" ? this.username.slice(1) : this.username
-      }`;
-    },
-    ...mapGetters({
-      countryCodes: "countryCodes",
-    }),
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$nuxt.$loading.finish();
-    }, 700);
-  },
-  beforeDestroy() {
-    this.$nuxt.$loading.start();
-  },
-  methods: {
-    to() {
-      this.$router.go(-1);
-    },
-    async login() {
-      const payload = {
-        username: this.fullUser,
-        password: this.pass,
-      };
-      this.loggingIn = true;
-      try {
-        const response = await this.$auth.loginWith("local", {
-          data: payload,
-        });
-        console.log("res is", response);
-        this.loggingIn = false;
-      } catch (error) {
-        this.$vs.notification({
-          title: "ERROR!!!",
-          progress: "auto",
-          color: "danger",
-          text: `${error.response.data.msg}`,
-        });
-        console.error(error);
-        this.loggingIn = false;
+  export default {
+    name: 'Login',
+    layout: 'auth',
+    auth: 'guest',
+    data() {
+      return {
+        username: '',
+        selectedCountry: {
+          name: 'Nigeria',
+          flag:
+            'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
+          number: '234',
+        },
+        loggingIn: false,
+        pass: '',
       }
-      // this.$router.push('/')
     },
-  },
-};
+    computed: {
+      fullUser() {
+        return `${this.selectedCountry.number}${
+          this.username[0] === '0' ? this.username.slice(1) : this.username
+        }`
+      },
+      ...mapGetters({
+        countryCodes: 'countryCodes',
+      }),
+    },
+    mounted() {
+      setTimeout(() => {
+        this.$nuxt.$loading.finish()
+      }, 700)
+    },
+    beforeDestroy() {
+      this.$nuxt.$loading.start()
+    },
+    methods: {
+      to() {
+        this.$router.go(-1)
+      },
+      async login() {
+        const payload = {
+          username: this.fullUser,
+          password: this.pass,
+        }
+        this.loggingIn = true
+        try {
+          const response = await this.$auth.loginWith('local', {
+            data: payload,
+          })
+          console.log('res is', response)
+          this.loggingIn = false
+        } catch (error) {
+          this.$vs.notification({
+            title: 'ERROR!!!',
+            progress: 'auto',
+            color: 'danger',
+            text: `${error.response.data.msg}`,
+          })
+          console.error(error)
+          this.loggingIn = false
+        }
+        // this.$router.push('/')
+      },
+    },
+  }
 </script>
 
 <style lang="scss"></style>

@@ -107,124 +107,124 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
-export default {
-  name: 'Login',
-  layout: 'auth',
-  auth: 'guest',
-  data() {
-    return {
-      number: '',
-      codeSent: false,
-      code: '',
-      pin: '',
-      selectedCountry: {
-        name: 'Nigeria',
-        flag:
-          'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
-        number: '234',
+  export default {
+    name: 'Login',
+    layout: 'auth',
+    auth: 'guest',
+    data() {
+      return {
+        number: '',
+        codeSent: false,
+        code: '',
+        pin: '',
+        selectedCountry: {
+          name: 'Nigeria',
+          flag:
+            'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
+          number: '234',
+        },
+        baseUrl: process.env.baseUrl,
+        processing: false,
+      }
+    },
+    computed: {
+      fullUser() {
+        return `${this.selectedCountry.number}${
+          this.number[0] === '0' ? this.number.slice(1) : this.number
+        }`
       },
-      baseUrl: process.env.baseUrl,
-      processing: false,
-    }
-  },
-  computed: {
-    fullUser() {
-      return `${this.selectedCountry.number}${
-        this.number[0] === '0' ? this.number.slice(1) : this.number
-      }`
+      ...mapGetters({
+        countryCodes: 'countryCodes',
+      }),
     },
-    ...mapGetters({
-      countryCodes: 'countryCodes',
-    }),
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$nuxt.$loading.finish()
-    }, 700)
-  },
-  beforeDestroy() {
-    this.$nuxt.$loading.start()
-  },
-  methods: {
-    async reqReset() {
-      const payload = {
-        username: this.fullUser,
-      }
-      try {
-        const requestResponse = await this.$axios.$post(
-          this.baseUrl + 'auth/user/request-password-reset/',
-          payload
-        )
-        console.log(requestResponse)
-
-        this.$vs.notification({
-          color: 'success',
-          position: 'top-right',
-          title: 'Success!',
-          text: `${requestResponse.msg}`,
-        })
-        // this.authenticate(signInResponse)
-        this.processing = false
-        this.codeSent = true
-      } catch (e) {
-        this.$vs.notification({
-          color: 'danger',
-          position: 'top-right',
-          title: 'Error!',
-          text: `${JSON.stringify(e.response.data.detail)}`,
-        })
-        this.processing = false
-        console.log(e.response)
-      }
+    mounted() {
+      setTimeout(() => {
+        this.$nuxt.$loading.finish()
+      }, 700)
     },
-    async resetAcc() {
-      this.processing = true
-      if (!this.codeSent) {
-        await this.reqReset()
-      } else {
+    beforeDestroy() {
+      this.$nuxt.$loading.start()
+    },
+    methods: {
+      async reqReset() {
         const payload = {
           username: this.fullUser,
-          nonce: this.code,
-          password: this.pin,
         }
-        console.log(payload)
-        this.processing = true
         try {
-          const resetResponse = await this.$axios.$post(
-            this.baseUrl + 'auth/user/complete-password-reset/',
+          const requestResponse = await this.$axios.$post(
+            this.baseUrl + 'auth/user/request-password-reset/',
             payload
           )
-          console.log(resetResponse)
+          console.log(requestResponse)
+
           this.$vs.notification({
             color: 'success',
             position: 'top-right',
             title: 'Success!',
-            text: `${resetResponse.msg}`,
+            text: `${requestResponse.msg}`,
           })
           // this.authenticate(signInResponse)
-          await this.$router.push('/auth/login')
           this.processing = false
+          this.codeSent = true
         } catch (e) {
           this.$vs.notification({
             color: 'danger',
             position: 'top-right',
             title: 'Error!',
-            text: `${JSON.stringify(e.response.data.error)}`,
+            text: `${JSON.stringify(e.response.data.detail)}`,
           })
-
           this.processing = false
           console.log(e.response)
         }
-      }
-      /* const payload {
+      },
+      async resetAcc() {
+        this.processing = true
+        if (!this.codeSent) {
+          await this.reqReset()
+        } else {
+          const payload = {
+            username: this.fullUser,
+            nonce: this.code,
+            password: this.pin,
+          }
+          console.log(payload)
+          this.processing = true
+          try {
+            const resetResponse = await this.$axios.$post(
+              this.baseUrl + 'auth/user/complete-password-reset/',
+              payload
+            )
+            console.log(resetResponse)
+            this.$vs.notification({
+              color: 'success',
+              position: 'top-right',
+              title: 'Success!',
+              text: `${resetResponse.msg}`,
+            })
+            // this.authenticate(signInResponse)
+            await this.$router.push('/auth/login')
+            this.processing = false
+          } catch (e) {
+            this.$vs.notification({
+              color: 'danger',
+              position: 'top-right',
+              title: 'Error!',
+              text: `${JSON.stringify(e.response.data.error)}`,
+            })
+
+            this.processing = false
+            console.log(e.response)
+          }
+        }
+        /* const payload {
         username: this.fullUser
       } */
+      },
+      to() {
+        this.$router.go(-1)
+      },
     },
-    to() {
-      this.$router.go(-1)
-    },
-  },
-}
+  }
 </script>

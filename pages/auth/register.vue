@@ -56,7 +56,7 @@
               placeholder="Phone Number"
               name="number"
             />
-            <span class="err-msg">{{ errors.first("number") }}</span>
+            <span class="err-msg">{{ errors.first('number') }}</span>
           </div>
           <div class="p-inputgroup uk-margin-bottom">
             <span class="p-inputgroup-addon">
@@ -69,7 +69,7 @@
               name="first"
               placeholder="First Name"
             />
-            <span class="err-msg">{{ errors.first("first") }}</span>
+            <span class="err-msg">{{ errors.first('first') }}</span>
           </div>
           <div class="p-inputgroup uk-margin-bottom">
             <span class="p-inputgroup-addon">
@@ -82,7 +82,7 @@
               name="last"
               placeholder="Last Name"
             />
-            <span class="err-msg">{{ errors.first("last") }}</span>
+            <span class="err-msg">{{ errors.first('last') }}</span>
           </div>
           <div class="p-inputgroup uk-margin-bottom">
             <span class="p-inputgroup-addon">
@@ -96,7 +96,7 @@
               :toggle-mask="true"
               :feedback="false"
             />
-            <span class="err-msg">{{ errors.first("pin") }}</span>
+            <span class="err-msg">{{ errors.first('pin') }}</span>
           </div>
           <div class="p-inputgroup uk-margin-bottom">
             <span class="p-inputgroup-addon">
@@ -110,7 +110,7 @@
               :toggle-mask="true"
               :feedback="false"
             />
-            <span class="err-msg">{{ errors.first("confirm") }}</span>
+            <span class="err-msg">{{ errors.first('confirm') }}</span>
           </div>
           <div class="terms--confirm">
             <span class="uk-light"
@@ -140,91 +140,91 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+  import { mapGetters } from 'vuex'
 
-export default {
-  name: "Login",
-  layout: "auth",
-  auth: "guest",
-  data() {
-    return {
-      username: "",
-      selectedCountry: {
-        name: "Nigeria",
-        flag:
-          "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg",
-        number: "234",
-      },
-      pass: "",
-      pass2: "",
-      fname: "",
-      lname: "",
-      registering: false,
-      baseUrl: process.env.baseUrl,
-    };
-  },
-  computed: {
-    fullUser() {
-      return `${this.selectedCountry.number}${
-        this.username[0] === "0" ? this.username.slice(1) : this.username
-      }`;
-    },
-    ...mapGetters({
-      countryCodes: "countryCodes",
-    }),
-  },
-  mounted() {
-    setTimeout(() => {
-      this.$nuxt.$loading.finish();
-    }, 700);
-  },
-  beforeDestroy() {
-    this.$nuxt.$loading.start();
-  },
-  methods: {
-    to() {
-      this.$router.go(-1);
-    },
-    async register() {
-      this.registering = true;
-      await this.$validator.validateAll();
-      await console.log(this.errors.items);
-      const payload = {
-        first_name: this.fname,
-        last_name: this.lname,
-        phone: this.fullUser,
-        password: this.pass,
-      };
-
-      const headers = {
-        "Content-Type": "application/json",
-        "X-PFK-DT": "B",
-      };
-      if (this.errors.items.length > 0) {
-        await console.log("There are errors!!!");
-        this.registering = false;
-      } else if (this.pass === this.pass2) {
-        try {
-          const signupResponse = await this.$axios.$post(
-            this.baseUrl + "auth/accounts/signup/",
-            payload,
-            { headers }
-          );
-          await console.log("Signup Response", signupResponse);
-          await this.$router.push("/confirmation");
-          this.registering = false;
-        } catch (e) {
-          console.log(e.response);
-          this.$vs.notification({
-            color: "danger",
-            position: "top-right",
-            title: "Auth Error!",
-            text: `${e.response.data.msg}`,
-          });
-          this.registering = false;
-        }
+  export default {
+    name: 'Login',
+    layout: 'auth',
+    auth: 'guest',
+    data() {
+      return {
+        username: '',
+        selectedCountry: {
+          name: 'Nigeria',
+          flag:
+            'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
+          number: '234',
+        },
+        pass: '',
+        pass2: '',
+        fname: '',
+        lname: '',
+        registering: false,
+        baseUrl: process.env.baseUrl,
       }
     },
-  },
-};
+    computed: {
+      fullUser() {
+        return `${this.selectedCountry.number}${
+          this.username[0] === '0' ? this.username.slice(1) : this.username
+        }`
+      },
+      ...mapGetters({
+        countryCodes: 'countryCodes',
+      }),
+    },
+    mounted() {
+      setTimeout(() => {
+        this.$nuxt.$loading.finish()
+      }, 700)
+    },
+    beforeDestroy() {
+      this.$nuxt.$loading.start()
+    },
+    methods: {
+      to() {
+        this.$router.go(-1)
+      },
+      async register() {
+        this.registering = true
+        await this.$validator.validateAll()
+        await console.log(this.errors.items)
+        const payload = {
+          first_name: this.fname,
+          last_name: this.lname,
+          phone: this.fullUser,
+          password: this.pass,
+        }
+
+        const headers = {
+          'Content-Type': 'application/json',
+          'X-PFK-DT': 'B',
+        }
+        if (this.errors.items.length > 0) {
+          await console.log('There are errors!!!')
+          this.registering = false
+        } else if (this.pass === this.pass2) {
+          try {
+            const signupResponse = await this.$axios.$post(
+              this.baseUrl + 'auth/accounts/signup/',
+              payload,
+              { headers }
+            )
+            await console.log('Signup Response', signupResponse)
+            await this.$router.push('/confirmation')
+            this.registering = false
+          } catch (e) {
+            console.log(e.response)
+            this.$vs.notification({
+              color: 'danger',
+              position: 'top-right',
+              title: 'Auth Error!',
+              text: `${e.response.data.msg}`,
+            })
+            this.registering = false
+          }
+        }
+      },
+    },
+  }
 </script>

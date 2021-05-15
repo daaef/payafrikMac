@@ -6,17 +6,17 @@ export const state = () => ({
   ltcPrices: [],
   dashPrices: [],
   daysInterval: 30,
-  priceCurrency: "USD",
-  bitcoinCurrency: "BTC",
-  ethereumCurrency: "ETH",
-  litecoinCurrency: "LTC",
-  dashcoinCurrency: "DASH",
-  hourPeriod: "hour",
-  monthPeriod: "month",
-  yearPeriod: "year",
-  dayPeriod: "day",
-  weekPeriod: "week",
-  allPeriod: "all",
+  priceCurrency: 'USD',
+  bitcoinCurrency: 'BTC',
+  ethereumCurrency: 'ETH',
+  litecoinCurrency: 'LTC',
+  dashcoinCurrency: 'DASH',
+  hourPeriod: 'hour',
+  monthPeriod: 'month',
+  yearPeriod: 'year',
+  dayPeriod: 'day',
+  weekPeriod: 'week',
+  allPeriod: 'all',
   btcData: {},
   ethData: {},
   litecoinData: {},
@@ -30,163 +30,163 @@ export const state = () => ({
   ETH: false,
   LTC: false,
   DASH: false,
-});
+})
 export const mutations = {
   setChartDataCollapsed(state, payload) {
-    state[payload] = !state[payload];
-    console.log(`set ${payload} done`);
+    state[payload] = !state[payload]
+    console.log(`set ${payload} done`)
   },
   setUser(state, payload) {
-    state.myUserDetails = payload;
+    state.myUserDetails = payload
   },
   setDaysInterval(state, payload) {
-    state.daysInterval = payload;
+    state.daysInterval = payload
   },
   setBtcPrices(state, payload) {
-    state.btcPrices = payload;
+    state.btcPrices = payload
   },
   setEthPrices(state, payload) {
-    state.ethPrices = payload;
+    state.ethPrices = payload
   },
   setLtcPrices(state, payload) {
-    state.ltcPrices = payload;
+    state.ltcPrices = payload
   },
   setDashPrices(state, payload) {
-    state.dashPrices = payload;
+    state.dashPrices = payload
   },
   loadBTCData(state, data) {
     // console.log(data)
-    state.btcData = data;
+    state.btcData = data
   },
   loadEthData(state, data) {
     // console.log(data)
-    state.ethData = data;
+    state.ethData = data
   },
   loadLitecoinData(state, data) {
     // console.log(data)
-    state.litecoinData = data;
+    state.litecoinData = data
   },
   loadDashData(state, data) {
     // console.log(data)
-    state.dashData = data;
+    state.dashData = data
   },
   loadBTCChartData(state, data) {
     // console.log('btc chart data', data)
-    state.btcChartData = data;
+    state.btcChartData = data
   },
   loadEthChartData(state, data) {
     // console.log('eth chart data', data)
-    state.ethChartData = data;
+    state.ethChartData = data
   },
   loadLitecoinChartData(state, data) {
     // console.log('lite coin chart data', data)
-    state.litecoinChartData = data;
+    state.litecoinChartData = data
   },
   loadDashChartData(state, data) {
     // console.log('dash chart data', data)
-    state.dashChartData = data;
+    state.dashChartData = data
   },
   setBanks(state, bank) {
-    state.banks = bank;
+    state.banks = bank
   },
-};
+}
 export const actions = {
   setUser({ rootState, commit }) {
-    commit("setUser", rootState.auth.user);
+    commit('setUser', rootState.auth.user)
   },
   async getCoinData({ commit, dispatch, state }) {
-    dispatch("setUser");
+    dispatch('setUser')
     const coinMarketData = await this.$axios.$get(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,dash,litecoin&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h"
-    );
-    const btcSparkline = coinMarketData[0].sparkline_in_7d.price;
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,dash,litecoin&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=24h'
+    )
+    const btcSparkline = coinMarketData[0].sparkline_in_7d.price
 
     const ethSparkline = coinMarketData.find((mrkData) => {
-      return mrkData.id === "ethereum";
-    }).sparkline_in_7d.price;
+      return mrkData.id === 'ethereum'
+    }).sparkline_in_7d.price
 
     const litecoinSparkline = coinMarketData.find((mrkData) => {
-      return mrkData.id === "litecoin";
-    }).sparkline_in_7d.price;
+      return mrkData.id === 'litecoin'
+    }).sparkline_in_7d.price
 
     const dashSparkline = coinMarketData.find((mrkData) => {
-      return mrkData.id === "dash";
-    }).sparkline_in_7d.price;
+      return mrkData.id === 'dash'
+    }).sparkline_in_7d.price
 
-    commit("loadBTCChartData", btcSparkline);
-    commit("loadEthChartData", ethSparkline);
-    commit("loadLitecoinChartData", litecoinSparkline);
-    commit("loadDashChartData", dashSparkline);
+    commit('loadBTCChartData', btcSparkline)
+    commit('loadEthChartData', ethSparkline)
+    commit('loadLitecoinChartData', litecoinSparkline)
+    commit('loadDashChartData', dashSparkline)
 
-    commit("loadBTCData", coinMarketData[0]);
+    commit('loadBTCData', coinMarketData[0])
     commit(
-      "loadEthData",
+      'loadEthData',
       coinMarketData.find((mrkData) => {
-        return mrkData.id === "ethereum";
+        return mrkData.id === 'ethereum'
       })
-    );
+    )
     commit(
-      "loadLitecoinData",
+      'loadLitecoinData',
       coinMarketData.find((mrkData) => {
-        return mrkData.id === "litecoin";
+        return mrkData.id === 'litecoin'
       })
-    );
+    )
     commit(
-      "loadDashData",
+      'loadDashData',
       coinMarketData.find((mrkData) => {
-        return mrkData.id === "dash";
+        return mrkData.id === 'dash'
       })
-    );
+    )
   },
   async getBitcoinData({ state, commit }, period) {
     const currencyData = await this.$axios.$get(
       `https://www.coinbase.com/api/v2/prices/${state.bitcoinCurrency}-${state.priceCurrency}/historic?period=${period}`
-    );
-    const btcArray = [];
+    )
+    const btcArray = []
     currencyData.data.prices.forEach((btc) => {
-      btcArray.push([new Date(btc.time).getTime(), +btc.price]);
-    });
-    commit("setBtcPrices", btcArray);
+      btcArray.push([new Date(btc.time).getTime(), +btc.price])
+    })
+    commit('setBtcPrices', btcArray)
   },
   async getEthPriceData({ state, commit }, period) {
     const currencyData = await this.$axios.$get(
       `https://www.coinbase.com/api/v2/prices/${state.ethereumCurrency}-${state.priceCurrency}/historic?period=${period}`
-    );
-    const btcArray = [];
+    )
+    const btcArray = []
     currencyData.data.prices.forEach((btc) => {
-      btcArray.push([new Date(btc.time).getTime(), +btc.price]);
-    });
-    commit("setEthPrices", btcArray);
+      btcArray.push([new Date(btc.time).getTime(), +btc.price])
+    })
+    commit('setEthPrices', btcArray)
   },
   async getLtcPriceData({ state, commit }, period) {
     const currencyData = await this.$axios.$get(
       `https://www.coinbase.com/api/v2/prices/${state.litecoinCurrency}-${state.priceCurrency}/historic?period=${period}`
-    );
-    const btcArray = [];
+    )
+    const btcArray = []
     currencyData.data.prices.forEach((btc) => {
-      btcArray.push([new Date(btc.time).getTime(), +btc.price]);
-    });
-    commit("setLtcPrices", btcArray);
+      btcArray.push([new Date(btc.time).getTime(), +btc.price])
+    })
+    commit('setLtcPrices', btcArray)
   },
   async getDashPriceData({ state, commit }, period) {
     const currencyData = await this.$axios.$get(
       `https://www.coinbase.com/api/v2/prices/${state.dashcoinCurrency}-${state.priceCurrency}/historic?period=${period}`
-    );
-    const btcArray = [];
+    )
+    const btcArray = []
     currencyData.data.prices.forEach((btc) => {
-      btcArray.push([new Date(btc.time).getTime(), +btc.price]);
-    });
-    commit("setDashPrices", btcArray);
+      btcArray.push([new Date(btc.time).getTime(), +btc.price])
+    })
+    commit('setDashPrices', btcArray)
   },
-};
+}
 export const getters = {
   chartData(state, commit, rootState) {
     return [
       {
         key: 1,
-        currClass: "btc-color",
-        className: "btc_chart",
-        currency: "BTC",
+        currClass: 'btc-color',
+        className: 'btc_chart',
+        currency: 'BTC',
         asset_name: {
           name: state.btcData.name,
           img: state.btcData.image,
@@ -199,14 +199,14 @@ export const getters = {
         },
         balance: state.myUserDetails.btc_balance,
         chart: state.btcPrices,
-        query: "chart/getBitcoinData",
+        query: 'chart/getBitcoinData',
         wallet: rootState.auth.user.btc_wallet,
       },
       {
         key: 2,
-        currClass: "eth-color",
-        className: "eth_chart",
-        currency: "ETH",
+        currClass: 'eth-color',
+        className: 'eth_chart',
+        currency: 'ETH',
         asset_name: {
           name: state.ethData.name,
           img: state.ethData.image,
@@ -219,14 +219,14 @@ export const getters = {
         market_cap: state.ethData.market_cap,
         balance: state.myUserDetails.eth_balance,
         chart: state.ethPrices,
-        query: "chart/getEthPriceData",
+        query: 'chart/getEthPriceData',
         wallet: rootState.auth.user.eth_wallet,
       },
       {
         key: 3,
-        currClass: "ltc-color",
-        className: "ltc_chart",
-        currency: "LTC",
+        currClass: 'ltc-color',
+        className: 'ltc_chart',
+        currency: 'LTC',
         asset_name: {
           name: state.litecoinData.name,
           img: state.litecoinData.image,
@@ -239,14 +239,14 @@ export const getters = {
         },
         balance: 0.0,
         chart: state.ltcPrices,
-        query: "chart/getLtcPriceData",
+        query: 'chart/getLtcPriceData',
         wallet: rootState.auth.user.dash_wallet,
       },
       {
         key: 4,
-        currClass: "dash-color",
-        className: "dash_chart",
-        currency: "DASH",
+        currClass: 'dash-color',
+        className: 'dash_chart',
+        currency: 'DASH',
         asset_name: {
           name: state.dashData.name,
           img: state.dashData.image,
@@ -259,96 +259,96 @@ export const getters = {
         },
         balance: 0.0,
         chart: state.dashPrices,
-        query: "chart/getDashPriceData",
+        query: 'chart/getDashPriceData',
         wallet: rootState.auth.user.litecoin_wallet,
       },
-    ];
+    ]
   },
   btcPrices(state) {
-    return state.btcPrices;
+    return state.btcPrices
   },
   ethPrices(state) {
-    return state.ethPrices;
+    return state.ethPrices
   },
   ltcPrices(state) {
-    return state.ltcPrices;
+    return state.ltcPrices
   },
   dashPrices(state) {
-    return state.dashPrices;
+    return state.dashPrices
   },
   daysInterval(state) {
-    return state.daysInterval;
+    return state.daysInterval
   },
   priceCurrency(state) {
-    return state.priceCurrency;
+    return state.priceCurrency
   },
   bitcoinCurrency(state) {
-    return state.bitcoinCurrency;
+    return state.bitcoinCurrency
   },
   ethereumCurrency(state) {
-    return state.ethereumCurrency;
+    return state.ethereumCurrency
   },
   litecoinCurrency(state) {
-    return state.litecoinCurrency;
+    return state.litecoinCurrency
   },
   dashcoinCurrency(state) {
-    return state.dashcoinCurrency;
+    return state.dashcoinCurrency
   },
   hourPeriod(state) {
-    return state.hourPeriod;
+    return state.hourPeriod
   },
   monthPeriod(state) {
-    return state.monthPeriod;
+    return state.monthPeriod
   },
   yearPeriod(state) {
-    return state.yearPeriod;
+    return state.yearPeriod
   },
   dayPeriod(state) {
-    return state.dayPeriod;
+    return state.dayPeriod
   },
   weekPeriod(state) {
-    return state.weekPeriod;
+    return state.weekPeriod
   },
   allPeriod(state) {
-    return state.allPeriod;
+    return state.allPeriod
   },
   btcData(state) {
-    return state.btcData;
+    return state.btcData
   },
   ethData(state) {
-    return state.ethData;
+    return state.ethData
   },
   litecoinData(state) {
-    return state.litecoinData;
+    return state.litecoinData
   },
   dashData(state) {
-    return state.dashData;
+    return state.dashData
   },
   btcChartData(state) {
-    return state.btcChartData;
+    return state.btcChartData
   },
   ethChartData(state) {
-    return state.ethChartData;
+    return state.ethChartData
   },
   litecoinChartData(state) {
-    return state.litecoinChartData;
+    return state.litecoinChartData
   },
   dashChartData(state) {
-    return state.dashChartData;
+    return state.dashChartData
   },
   btcPrice(state) {
-    return state.btcData.current_price;
+    return state.btcData.current_price
   },
   ethPrice(state) {
-    return state.ethData.current_price;
+    return state.ethData.current_price
   },
   ltcPrice(state) {
-    return state.litecoinData.current_price;
+    return state.litecoinData.current_price
   },
   dashPrice(state) {
-    return state.dashData.current_price;
+    return state.dashData.current_price
   },
   banks(state) {
-    return state.banks;
+    return state.banks
   },
-};
+}

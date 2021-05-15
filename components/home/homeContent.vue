@@ -57,35 +57,35 @@
 </template>
 
 <script>
-export default {
-  name: "HomeContent",
-};
+  export default {
+    name: 'HomeContent',
+  }
 </script>
 
 <style scoped lang="scss">
-.prod--grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 20px;
-  margin-top: 20px;
-  height: calc(100% - 12rem - 120px);
-  .grid--item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(31, 41, 116, 0.4);
-    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    img {
-      height: 4rem;
-    }
-    h4 {
-      margin: 10px 0 0;
-      color: #fafafa;
+  .prod--grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 20px;
+    margin-top: 20px;
+    height: calc(100% - 12rem - 120px);
+    .grid--item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(31, 41, 116, 0.4);
+      box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      img {
+        height: 4rem;
+      }
+      h4 {
+        margin: 10px 0 0;
+        color: #fafafa;
+      }
     }
   }
-}
 </style>
