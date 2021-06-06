@@ -84,43 +84,43 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      text: null,
-    }
-  },
-  mounted() {
-    // eslint-disable-next-line no-console
-    console.dir(this.$nuxt.$loading)
-  },
-  methods: {
-    greet() {
-      this.$toast.add({ severity: 'info', summary: 'Hello ' + this.text })
+  export default {
+    data() {
+      return {
+        text: null,
+      }
     },
-    onSkip() {
-      this.$store.commit('setOnboarded', true)
+    mounted() {
+      // eslint-disable-next-line no-console
+      console.dir(this.$nuxt.$loading)
     },
-    onFin() {
-      this.$store.commit('setOnboarded', true)
+    methods: {
+      greet() {
+        this.$toast.add({ severity: 'info', summary: 'Hello ' + this.text })
+      },
+      onSkip() {
+        this.$store.commit('setOnboarded', true)
+      },
+      onFin() {
+        this.$store.commit('setOnboarded', true)
+      },
     },
-  },
-}
+  }
 </script>
 
 <style scoped>
-a.uk-position-center-right.uk-position-small.uk-hidden-hover {
-  bottom: 0;
-  top: unset;
-  right: 50%;
-  transform: translate(50%, -50%);
-  text-decoration: none;
-}
-a.uk-position-center-left.uk-position-small.uk-hidden-hover {
-  top: 20px;
-  left: unset;
-  right: 20px;
-  transform: translate(50%, -50%);
-  text-decoration: none;
-}
+  a.uk-position-center-right.uk-position-small.uk-hidden-hover {
+    bottom: 0;
+    top: unset;
+    right: 50%;
+    transform: translate(50%, -50%);
+    text-decoration: none;
+  }
+  a.uk-position-center-left.uk-position-small.uk-hidden-hover {
+    top: 20px;
+    left: unset;
+    right: 20px;
+    transform: translate(50%, -50%);
+    text-decoration: none;
+  }
 </style>

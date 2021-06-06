@@ -81,7 +81,7 @@
         <vs-row justify="space-between">
           <vs-tooltip danger right>
             <vs-avatar danger>
-              <a class="text-link" href="#" @click="$auth.logout()">
+              <a class="text-link" href="#" @click="logoutUser">
                 <i class="pi pi-sign-out"></i>
               </a>
             </vs-avatar>
@@ -107,27 +107,33 @@
 </template>
 
 <script>
-export default {
-  name: "NavNSidebar",
-  data: () => ({
-    active: "home",
-    activeSidebar: false,
-    userModal: false,
-  }),
-  computed: {
-    userDetails() {
-      return this.$store.state.auth.user;
+  export default {
+    name: 'NavNSidebar',
+    data: () => ({
+      active: 'home',
+      activeSidebar: false,
+      userModal: false,
+    }),
+    computed: {
+      userDetails() {
+        return this.$store.state.auth.user
+      },
     },
-  },
-};
+    methods: {
+      logoutUser() {
+        this.$nuxt.$loading.start()
+        this.$auth.logout()
+      },
+    },
+  }
 </script>
 
 <style scoped>
-.user-modal,
-.p-sidebar {
-  background: rgba(11, 9, 48, 0.98);
-  height: 100%;
-  width: 100%;
-  z-index: 10000 !important;
-}
+  .user-modal,
+  .p-sidebar {
+    background: rgba(11, 9, 48, 0.98);
+    height: 100%;
+    width: 100%;
+    z-index: 10000 !important;
+  }
 </style>

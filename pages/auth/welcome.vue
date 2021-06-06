@@ -8,17 +8,17 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   export default {
     data() {
       return {
         text: null,
       }
     },
-    computed: mapGetters({
-      onboarded: 'onboarded',
-    }),
+    computed: {
+      onboarded() {
+        return this.$store.state.onboarded
+      },
+    },
     mounted() {
       setTimeout(() => {
         this.greet()

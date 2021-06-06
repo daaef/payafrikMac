@@ -233,278 +233,278 @@
 </template>
 
 <script>
-export default {
-  name: "UserModal",
-  data() {
-    return {
-      profile: true,
-      uname: "",
-      pnum: "",
-      avatar: "",
-      fname: "",
-      lname: "",
-      email: "",
-      docType: "",
-      docSide: "",
-      uploadedFile: "",
-      fileName: "",
-      selectedGender: [{ name: "", value: "" }],
-      genders: [
-        { name: "Male", value: "M" },
-        { name: "Female", value: "F" },
-      ],
-      dob: null,
-      cantEdit: true,
-      activeDetail: 0,
-      processing: false,
-      uploading: false,
-      baseUrl: process.env.baseUrl,
-    };
-  },
-  computed: {
-    userDetails() {
-      return this.$store.state.auth.user;
+  export default {
+    name: 'UserModal',
+    data() {
+      return {
+        profile: true,
+        uname: '',
+        pnum: '',
+        avatar: '',
+        fname: '',
+        lname: '',
+        email: '',
+        docType: '',
+        docSide: '',
+        uploadedFile: '',
+        fileName: '',
+        selectedGender: [{ name: '', value: '' }],
+        genders: [
+          { name: 'Male', value: 'M' },
+          { name: 'Female', value: 'F' },
+        ],
+        dob: null,
+        cantEdit: true,
+        activeDetail: 0,
+        processing: false,
+        uploading: false,
+        baseUrl: process.env.baseUrl,
+      }
     },
-    gender() {
-      return this.selectedGender.value;
+    computed: {
+      userDetails() {
+        return this.$store.state.auth.user
+      },
+      gender() {
+        return this.selectedGender.value
+      },
     },
-  },
-  watch: {
-    dob(val) {
-      console.log(this.$moment(val).format("YYYY-MM-DD"));
+    watch: {
+      dob(val) {
+        console.log(this.$moment(val).format('YYYY-MM-DD'))
+      },
     },
-  },
-  mounted() {
-    console.log("Date is", this.$moment().format("YYYY-MM-DD"));
-    this.uname = this.userDetails.username;
-    this.pnum = this.userDetails.phone;
-    this.fname = this.userDetails.first_name;
-    this.lname = this.userDetails.last_name;
-    this.email = this.userDetails.email;
-    this.dob = this.userDetails.dob;
-    this.avatar = this.userDetails.avatar;
+    mounted() {
+      console.log('Date is', this.$moment().format('YYYY-MM-DD'))
+      this.uname = this.userDetails.username
+      this.pnum = this.userDetails.phone
+      this.fname = this.userDetails.first_name
+      this.lname = this.userDetails.last_name
+      this.email = this.userDetails.email
+      this.dob = this.userDetails.dob
+      this.avatar = this.userDetails.avatar
 
-    if (this.userDetails.gender === "") {
-      console.log("gender is", this.userDetails.gender);
-      this.selectedGender = "";
-    } else {
-      console.log("gender from return is", this.userDetails.gender);
-      if (this.userDetails.gender === "M") {
-        this.selectedGender = {
-          name: "Male",
-          value: "M",
-        };
+      if (this.userDetails.gender === '') {
+        console.log('gender is', this.userDetails.gender)
+        this.selectedGender = ''
       } else {
-        this.selectedGender = {
-          name: "Female",
-          value: "F",
-        };
-      }
-    }
-  },
-  methods: {
-    toggleTitle(val) {
-      this.profile = val;
-      this.cantEdit = true;
-    },
-    async updateProfile() {
-      this.processing = true;
-      const payload = {
-        first_name: this.fname,
-        last_name: this.lname,
-        dob: this.$moment(this.dob).format("YYYY-MM-DD"),
-        email: this.email,
-        gender: this.gender,
-      };
-
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: this.$auth.strategy.token.get(),
-      };
-
-      console.log("payloads are", payload);
-      console.log("Headers", headers);
-
-      try {
-        const signupResponse = await this.$axios.$put(
-          this.baseUrl + "auth/user/edit-profile/",
-          payload,
-          { headers }
-        );
-        console.log("Edit Response", signupResponse);
-        await this.getUserDetails();
-        this.processing = false;
-      } catch (e) {
-        console.dir(e);
-        this.$vs.notification({
-          color: "danger",
-          position: "top-right",
-          title: "Error!",
-          text: `${e.response.data.msg}: Please make sure all ur fields are provided`,
-        });
-        this.processing = false;
+        console.log('gender from return is', this.userDetails.gender)
+        if (this.userDetails.gender === 'M') {
+          this.selectedGender = {
+            name: 'Male',
+            value: 'M',
+          }
+        } else {
+          this.selectedGender = {
+            name: 'Female',
+            value: 'F',
+          }
+        }
       }
     },
+    methods: {
+      toggleTitle(val) {
+        this.profile = val
+        this.cantEdit = true
+      },
+      async updateProfile() {
+        this.processing = true
+        const payload = {
+          first_name: this.fname,
+          last_name: this.lname,
+          dob: this.$moment(this.dob).format('YYYY-MM-DD'),
+          email: this.email,
+          gender: this.gender,
+        }
 
-    async getUserDetails() {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: this.$auth.strategy.token.get(),
-      };
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: this.$auth.strategy.token.get(),
+        }
 
-      try {
-        const updatedUserDetails = await this.$axios.$get(
-          this.baseUrl + "auth/accounts/" + this.userDetails.id + "/",
-          { headers }
-        );
-        updatedUserDetails.token = this.$auth.strategy.token.get();
-        console.log("updated user =====>", updatedUserDetails);
+        console.log('payloads are', payload)
+        console.log('Headers', headers)
 
-        const userLoad = {
-          key: "user",
-          value: updatedUserDetails,
-        };
-        this.$store.commit("auth/SET", userLoad);
-        this.fname = this.userDetails.first_name;
-        this.lname = this.userDetails.last_name;
-        this.uname = this.userDetails.username;
-        this.pnum = this.userDetails.phone;
-        this.email = this.userDetails.email;
-        this.dob = this.userDetails.dob;
-      } catch (e) {
-        this.$vs.notification({
-          color: "danger",
-          position: "top-right",
-          title: "Error!",
-          text: `${e.response}`,
-        });
-        this.importingWallet = false;
-        console.log(e);
-      }
+        try {
+          const signupResponse = await this.$axios.$put(
+            this.baseUrl + 'auth/user/edit-profile/',
+            payload,
+            { headers }
+          )
+          console.log('Edit Response', signupResponse)
+          await this.getUserDetails()
+          this.processing = false
+        } catch (e) {
+          console.dir(e)
+          this.$vs.notification({
+            color: 'danger',
+            position: 'top-right',
+            title: 'Error!',
+            text: `${e.response.data.msg}: Please make sure all ur fields are provided`,
+          })
+          this.processing = false
+        }
+      },
+
+      async getUserDetails() {
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: this.$auth.strategy.token.get(),
+        }
+
+        try {
+          const updatedUserDetails = await this.$axios.$get(
+            this.baseUrl + 'auth/accounts/' + this.userDetails.id + '/',
+            { headers }
+          )
+          updatedUserDetails.token = this.$auth.strategy.token.get()
+          console.log('updated user =====>', updatedUserDetails)
+
+          const userLoad = {
+            key: 'user',
+            value: updatedUserDetails,
+          }
+          this.$store.commit('auth/SET', userLoad)
+          this.fname = this.userDetails.first_name
+          this.lname = this.userDetails.last_name
+          this.uname = this.userDetails.username
+          this.pnum = this.userDetails.phone
+          this.email = this.userDetails.email
+          this.dob = this.userDetails.dob
+        } catch (e) {
+          this.$vs.notification({
+            color: 'danger',
+            position: 'top-right',
+            title: 'Error!',
+            text: `${e.response}`,
+          })
+          this.importingWallet = false
+          console.log(e)
+        }
+      },
+      onFileChange(e, docType, docSide) {
+        this.uploading = true
+        this.docSide = docSide
+        this.docType = docType
+        const files = e.target.files || e.dataTransfer.files
+        if (!files.length) {
+          return
+        }
+        this.uploadedFile = files[0]
+        this.fileName = this.uploadedFile.name
+        this.createImage(files[0])
+      },
+
+      createImage(file) {
+        const image = new Image()
+        const reader = new FileReader()
+        const vm = this
+
+        reader.onload = (e) => {
+          vm.avatar = e.target.result
+        }
+        reader.readAsDataURL(file)
+        console.log('image is', image)
+        this.avatar = image
+        this.uploadKYC()
+      },
+      log() {
+        console.log('card clicked')
+      },
+      async uploadKYC() {
+        await console.log('uploading')
+        const formData = new FormData()
+        formData.append('file', this.uploadedFile)
+
+        const headers = {
+          'Content-Type': 'multipart/form-data',
+          Authorization: this.$auth.strategy.token.get(),
+        }
+
+        try {
+          const uploaded = await this.$axios.$post(
+            `${this.baseUrl}auth/kyc/${this.docType}/${this.docSide}/`,
+            formData,
+            { headers }
+          )
+          console.log(uploaded)
+          this.uploadedFile = ''
+          this.image = ''
+          this.fileName = ''
+          await this.getUserDetails()
+          this.uploading = false
+        } catch (e) {
+          this.importingWallet = false
+          console.log(e.response)
+          this.uploading = false
+        }
+      },
     },
-    onFileChange(e, docType, docSide) {
-      this.uploading = true;
-      this.docSide = docSide;
-      this.docType = docType;
-      const files = e.target.files || e.dataTransfer.files;
-      if (!files.length) {
-        return;
-      }
-      this.uploadedFile = files[0];
-      this.fileName = this.uploadedFile.name;
-      this.createImage(files[0]);
-    },
-
-    createImage(file) {
-      const image = new Image();
-      const reader = new FileReader();
-      const vm = this;
-
-      reader.onload = (e) => {
-        vm.avatar = e.target.result;
-      };
-      reader.readAsDataURL(file);
-      console.log("image is", image);
-      this.avatar = image;
-      this.uploadKYC();
-    },
-    log() {
-      console.log("card clicked");
-    },
-    async uploadKYC() {
-      await console.log("uploading");
-      const formData = new FormData();
-      formData.append("file", this.uploadedFile);
-
-      const headers = {
-        "Content-Type": "multipart/form-data",
-        Authorization: this.$auth.strategy.token.get(),
-      };
-
-      try {
-        const uploaded = await this.$axios.$post(
-          `${this.baseUrl}auth/kyc/${this.docType}/${this.docSide}/`,
-          formData,
-          { headers }
-        );
-        console.log(uploaded);
-        this.uploadedFile = "";
-        this.image = "";
-        this.fileName = "";
-        await this.getUserDetails();
-        this.uploading = false;
-      } catch (e) {
-        this.importingWallet = false;
-        console.log(e.response);
-        this.uploading = false;
-      }
-    },
-  },
-};
+  }
 </script>
 <style scoped lang="scss">
-.userdetail-content {
-  padding: 30px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .p-inputtext {
-    color: #fdb302;
-    &[id="gender"] {
-      position: absolute;
+  .userdetail-content {
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .p-inputtext {
+      color: #fdb302;
+      &[id='gender'] {
+        position: absolute;
+      }
+    }
+    .p-dropdown.p-component.p-inputwrapper {
+      width: 100%;
+      background: #080426;
+    }
+    input {
+      width: 100%;
+    }
+    .p-float-label {
+      label {
+        background: transparent;
+        color: #fafafa;
+      }
+
+      .p-inputtext {
+        background: #080426 !important;
+      }
     }
   }
-  .p-dropdown.p-component.p-inputwrapper {
-    width: 100%;
-    background: #080426;
+
+  .mod-top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
   }
-  input {
+
+  .mod-inputs {
+    margin-top: 30px;
     width: 100%;
-  }
-  .p-float-label {
-    label {
-      background: transparent;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    .p-field {
+      margin-bottom: 0;
+      &:last-of-type {
+        grid-column: 1 / span 2;
+      }
+    }
+
+    .p-calendar-w-btn {
+      background: #080426;
+      width: 100%;
+    }
+    .p-calendar-w-btn .p-datepicker-trigger.p-button span {
       color: #fafafa;
     }
-
-    .p-inputtext {
-      background: #080426 !important;
-    }
   }
-}
-
-.mod-top {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 20px 0;
-}
-
-.mod-inputs {
-  margin-top: 30px;
-  width: 100%;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr;
-  .p-field {
-    margin-bottom: 0;
-    &:last-of-type {
-      grid-column: 1 / span 2;
-    }
+  .u-details {
+    max-height: 90vh;
+    height: 90vh;
   }
-
-  .p-calendar-w-btn {
-    background: #080426;
-    width: 100%;
-  }
-  .p-calendar-w-btn .p-datepicker-trigger.p-button span {
-    color: #fafafa;
-  }
-}
-.u-details {
-  max-height: 90vh;
-  height: 90vh;
-}
 </style>

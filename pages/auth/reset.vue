@@ -136,7 +136,7 @@
         }`
       },
       ...mapGetters({
-        countryCodes: 'countryCodes',
+        countryCodes: 'data/countryCodes',
       }),
     },
     mounted() {
@@ -158,7 +158,9 @@
             payload
           )
           console.log(requestResponse)
-
+          if (requestResponse.success) {
+            this.codeSent = true
+          }
           this.$vs.notification({
             color: 'success',
             position: 'top-right',

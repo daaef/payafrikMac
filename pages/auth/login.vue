@@ -109,7 +109,7 @@
         }`
       },
       ...mapGetters({
-        countryCodes: 'countryCodes',
+        countryCodes: 'data/countryCodes',
       }),
     },
     mounted() {

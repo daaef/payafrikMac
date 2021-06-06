@@ -1,5 +1,5 @@
 <template>
-  <lazy-home-content />
+  <home-content />
 </template>
 
 <script>
@@ -9,7 +9,6 @@
     data() {
       return {
         text: null,
-        active: 'home',
         activeSidebar: false,
       }
     },
@@ -18,14 +17,14 @@
         return this.$store.state.auth.user
       },
     },
+    beforeMount() {
+      // this.getUserTransactions(this.baseUrl + 'transactions/transactions')
+    },
     mounted() {
       setTimeout(() => {
         this.$nuxt.$loading.finish()
       }, 700)
       // eslint-disable-next-line no-console
-    },
-    beforeDestroy() {
-      this.$nuxt.$loading.start()
     },
     methods: {
       greet() {

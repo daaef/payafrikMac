@@ -1,82 +1,70 @@
 <template>
-  <vs-button class="wallet--item">
-    <div class="card">
-      <h5>Line Styles</h5>
-      <Chart type="line" :data="lineStylesData" :options="basicOptions" />
+  <vs-button
+    class="wallet--item btc-btn op-88 theme-btn uk-padding-remove"
+    :class="coinData.btnClass"
+    :to="coinData.address"
+  >
+    <div class="wallet-breakdown uk-flex">
+      <div class="breakdown-left">
+        <img class="logo" :src="coinData.asset_name.img" alt="" />
+      </div>
+      <div class="breakdown-right">
+        <div class="wallet--top">
+          <div class="logo-coin">
+            <div>
+              <div class="coin-name">
+                <h3>{{ coinData.asset_name.name }}</h3>
+                <p>{{ coinData.currency }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="coin-balance">
+            <h3>{{ coinData.balance | doubleForm }}</h3>
+            <p>0.00 USD</p>
+          </div>
+        </div>
+        <hr />
+        <div class="wallet-bottom">
+          <div class="dollar-bal">${{ coinData.price | formatNumber }}</div>
+          <div
+            class="percent"
+            :class="{
+              danger: coinData.change < 0,
+              success: coinData.change > 0,
+            }"
+          >
+            {{ coinData.change | doubleForm }}%
+          </div>
+        </div>
+      </div>
     </div>
-    <div>
-      <img src="~/assets/img/energy.png" alt="" />
-      <h4>Buy Electricity</h4>
-    </div>
+    <trend-chart
+      :datasets="[
+        {
+          data: coinData.coinChart,
+          fill: true,
+          className: coinData.className,
+          smooth: true,
+        },
+      ]"
+    />
   </vs-button>
 </template>
 
 <script>
-export default {
-  name: 'WalletBtn',
-  data() {
-    return {
-      multiAxisOptions: {
-        responsive: true,
-        hoverMode: 'index',
-        stacked: false,
-        scales: {
-          yAxes: [
-            {
-              type: 'linear',
-              display: true,
-              position: 'left',
-              id: 'y-axis-1',
-            },
-            {
-              type: 'linear',
-              display: true,
-              position: 'right',
-              id: 'y-axis-2',
-              gridLines: {
-                drawOnChartArea: false,
-              },
-            },
-          ],
-        },
+  export default {
+    name: 'WalletBtn',
+    props: {
+      coinData: {
+        type: Object,
+        default: null,
+        required: false,
       },
-      lineStylesData: {
-        labels: [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-        ],
-        datasets: [
-          {
-            label: 'First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: '#42A5F5',
-          },
-          {
-            label: 'Second Dataset',
-            data: [28, 48, 40, 19, 86, 27, 90],
-            fill: false,
-            borderDash: [5, 5],
-            borderColor: '#66BB6A',
-          },
-          {
-            label: 'Third Dataset',
-            data: [12, 51, 62, 33, 21, 62, 45],
-            fill: true,
-            borderColor: '#FFA726',
-            backgroundColor: 'rgba(255,167,38,0.2)',
-          },
-        ],
-      },
-      basicOptions: null,
-    }
-  },
-}
+    },
+    data() {
+      return {}
+    },
+  }
 </script>
 
 <style scoped></style>

@@ -43,7 +43,10 @@ export default {
   css: ['vuesax/dist/vuesax.css', '~/assets/scss/style.scss'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/vuesax'],
+  plugins: [
+    '@/plugins/vuesax',
+    { src: '~/plugins/persistedState.client.js', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -90,8 +93,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: 'https://api.payafrik.io/',
-    progress: true,
     debug: true,
+    credentials: false,
     headers: {
       common: {
         Accept: 'application/json, text/plain, */*',
@@ -140,7 +143,7 @@ export default {
     plugins: [
       new webpack.IgnorePlugin({
         // eslint-disable-next-line
-                resourceRegExp: /\@highcharts\/map\-collection/,
+        resourceRegExp: /\@highcharts\/map\-collection/,
       }),
     ],
   },

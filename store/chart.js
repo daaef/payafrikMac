@@ -185,7 +185,8 @@ export const getters = {
       {
         key: 1,
         currClass: 'btc-color',
-        className: 'btc_chart',
+        className: 'btc-chart',
+        btnClass: 'btc-btn',
         currency: 'BTC',
         asset_name: {
           name: state.btcData.name,
@@ -201,11 +202,14 @@ export const getters = {
         chart: state.btcPrices,
         query: 'chart/getBitcoinData',
         wallet: rootState.auth.user.btc_wallet,
+        coinChart: state.btcChartData,
+        address: '/wallet/bitcoin',
       },
       {
         key: 2,
         currClass: 'eth-color',
-        className: 'eth_chart',
+        className: 'eth-chart',
+        btnClass: 'eth-btn',
         currency: 'ETH',
         asset_name: {
           name: state.ethData.name,
@@ -221,11 +225,14 @@ export const getters = {
         chart: state.ethPrices,
         query: 'chart/getEthPriceData',
         wallet: rootState.auth.user.eth_wallet,
+        coinChart: state.ethChartData,
+        address: '/wallet/eth',
       },
       {
         key: 3,
         currClass: 'ltc-color',
-        className: 'ltc_chart',
+        className: 'ltc-chart',
+        btnClass: 'ltc-btn',
         currency: 'LTC',
         asset_name: {
           name: state.litecoinData.name,
@@ -240,12 +247,15 @@ export const getters = {
         balance: 0.0,
         chart: state.ltcPrices,
         query: 'chart/getLtcPriceData',
-        wallet: rootState.auth.user.dash_wallet,
+        wallet: rootState.auth.user.litecoin_wallet,
+        coinChart: state.litecoinChartData,
+        address: '/wallet/ltc',
       },
       {
         key: 4,
         currClass: 'dash-color',
-        className: 'dash_chart',
+        className: 'dash-chart',
+        btnClass: 'dash-btn',
         currency: 'DASH',
         asset_name: {
           name: state.dashData.name,
@@ -260,12 +270,114 @@ export const getters = {
         balance: 0.0,
         chart: state.dashPrices,
         query: 'chart/getDashPriceData',
-        wallet: rootState.auth.user.litecoin_wallet,
+        wallet: rootState.auth.user.dash_wallet,
+        coinChart: state.dashChartData,
+        address: '/wallet/dash',
       },
     ]
   },
   btcPrices(state) {
     return state.btcPrices
+  },
+  bitcoinWallet(state, commit, rootState) {
+    return {
+      key: 1,
+      currClass: 'btc-color',
+      className: 'btc-chart',
+      btnClass: 'btc-btn',
+      currency: 'BTC',
+      asset_name: {
+        name: state.btcData.name,
+        img: state.btcData.image,
+      },
+      price: state.btcData.current_price,
+      change: state.btcData.price_change_percentage_24h,
+      market_cap: state.btcData.market_cap,
+      data: {
+        collapsed: state.BTC,
+      },
+      balance: state.myUserDetails.btc_balance,
+      chart: state.btcPrices,
+      query: 'chart/getBitcoinData',
+      wallet: rootState.auth.user.btc_wallet,
+      coinChart: state.btcChartData,
+      address: '/wallet/bitcoin',
+    }
+  },
+  ethWallet(state, commit, rootState) {
+    return {
+      key: 2,
+      currClass: 'eth-color',
+      className: 'eth-chart',
+      btnClass: 'eth-btn',
+      currency: 'ETH',
+      asset_name: {
+        name: state.ethData.name,
+        img: state.ethData.image,
+      },
+      data: {
+        collapsed: state.ETH,
+      },
+      price: state.ethData.current_price,
+      change: state.ethData.price_change_percentage_24h,
+      market_cap: state.ethData.market_cap,
+      balance: state.myUserDetails.eth_balance,
+      chart: state.ethPrices,
+      query: 'chart/getEthPriceData',
+      wallet: rootState.auth.user.eth_wallet,
+      coinChart: state.ethChartData,
+      address: '/wallet/eth',
+    }
+  },
+  ltcWallet(state, commit, rootState) {
+    return {
+      key: 3,
+      currClass: 'ltc-color',
+      className: 'ltc-chart',
+      btnClass: 'ltc-btn',
+      currency: 'LTC',
+      asset_name: {
+        name: state.litecoinData.name,
+        img: state.litecoinData.image,
+      },
+      price: state.litecoinData.current_price,
+      change: state.litecoinData.price_change_percentage_24h,
+      market_cap: state.litecoinData.market_cap,
+      data: {
+        collapsed: state.LTC,
+      },
+      balance: 0.0,
+      chart: state.ltcPrices,
+      query: 'chart/getLtcPriceData',
+      wallet: rootState.auth.user.litecoin_wallet,
+      coinChart: state.litecoinChartData,
+      address: '/wallet/ltc',
+    }
+  },
+  dashWallet(state, commit, rootState) {
+    return {
+      key: 4,
+      currClass: 'dash-color',
+      className: 'dash-chart',
+      btnClass: 'dash-btn',
+      currency: 'DASH',
+      asset_name: {
+        name: state.dashData.name,
+        img: state.dashData.image,
+      },
+      price: state.dashData.current_price,
+      change: state.dashData.price_change_percentage_24h,
+      market_cap: state.dashData.market_cap,
+      data: {
+        collapsed: state.DASH,
+      },
+      balance: 0.0,
+      chart: state.dashPrices,
+      query: 'chart/getDashPriceData',
+      wallet: rootState.auth.user.dash_wallet,
+      coinChart: state.dashChartData,
+      address: '/wallet/dash',
+    }
   },
   ethPrices(state) {
     return state.ethPrices

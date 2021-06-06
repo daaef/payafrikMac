@@ -1,9 +1,9 @@
-@import "partials/variables";
-@import "partials/reset";
-@import "partials/buttons";
-@import "partials/steps";
-@import "partials/uikit";
-@import "partials/slider";
+@import 'partials/variables';
+@import 'partials/reset';
+@import 'partials/buttons';
+@import 'partials/steps';
+@import 'partials/uikit';
+@import 'partials/slider';
 @import '../../node_modules/primeflex/src/_variables.scss';
 @import '../../node_modules/primeflex/src/_grid.scss';
 @import '../../node_modules/primeflex/src/_formlayout.scss';
@@ -31,8 +31,14 @@
   justify-content: center;
   align-items: center;
 }
-.fade-enter-active, .fade-leave-active { transition: opacity .5s; }
-.fade-enter, .fade-leave-active { opacity: 0; }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
 
 .theme-color {
   color: #fdb302;
@@ -161,7 +167,7 @@
   box-shadow: none;
 }
 i.bx.bx-menu {
-  color: #fafafa
+  color: #fafafa;
 }
 
 button.vs-button.vs-button--null.vs-button--size-null.vs-button--icon.vs-button--primary.vs-button--flat {
@@ -182,7 +188,8 @@ button.vs-navbar__item {
   }
 }
 
-.vs-sidebar__item__icon, .vs-sidebar__item__text {
+.vs-sidebar__item__icon,
+.vs-sidebar__item__text {
   color: #fafafa;
 }
 
@@ -190,10 +197,10 @@ button.vs-navbar__item {
   background: #fdb302;
   font-size: 1.9rem;
   font-weight: 900;
-  .vs-component--danger &{
+  .vs-component--danger & {
     background: rgb(255, 71, 87);
     a {
-      color: #0a0a0a
+      color: #0a0a0a;
     }
   }
 }
@@ -208,14 +215,15 @@ button.vs-navbar__item {
   transform: translate(0px);
 }
 .vs-sidebar__item:after {
-  content: "";
-  background: #fdb302;}
+  content: '';
+  background: #fdb302;
+}
 
 .vs-sidebar__item__icon {
   color: #fdb302;
 }
 .vs-navbar {
-  height: 80px
+  height: 80px;
 }
 
 .p-sidebar-close-icon {
@@ -228,7 +236,7 @@ button.vs-navbar__item {
 }
 
 .bg-remove {
-  background: transparent!important;
+  background: transparent !important;
 }
 
 .home-holder {
@@ -252,7 +260,7 @@ button.vs-navbar__item {
 }
 .p-inputgroup {
   position: relative;
-  & > .p-input-icon-right{
+  & > .p-input-icon-right {
     .pi {
       color: #fafafa;
       font-size: 1.2rem;
@@ -264,7 +272,7 @@ button.vs-navbar__item {
   left: 0;
   top: -19px;
   color: orangered;
-  font-size: .8rem;
+  font-size: 0.8rem;
   z-index: 20;
 }
 
@@ -279,14 +287,14 @@ button.vs-navbar__item {
   justify-content: center;
   align-items: center;
   .main {
-    font-family: "Avenir Medium", sans-serif;
+    font-family: 'Avenir Medium', sans-serif;
     font-size: 1.47rem;
   }
   .sub {
-    font-family: "American Typewriter", serif;
+    font-family: 'American Typewriter', serif;
     font-weight: 100;
     font-size: 2.7rem;
-    line-height: .6;
+    line-height: 0.6;
   }
 }
 
@@ -296,15 +304,15 @@ button.vs-navbar__item {
   width: fit-content;
   align-items: flex-end;
   .main {
-    font-family: "Avenir Medium", sans-serif;
+    font-family: 'Avenir Medium', sans-serif;
     font-size: 2.1rem;
     margin-right: 10px;
-    line-height: .6;
+    line-height: 0.6;
   }
   .sub {
-    font-family: "American Typewriter", serif;
+    font-family: 'American Typewriter', serif;
     font-weight: 100;
-    line-height: .6;
+    line-height: 0.6;
     font-size: 2rem;
   }
 }
@@ -315,7 +323,7 @@ button.vs-navbar__item {
   width: 100%;
 
   .vs-button:disabled {
-    opacity: 1!important;
+    opacity: 1 !important;
   }
 }
 
@@ -345,15 +353,16 @@ button.vs-navbar__item {
     color: #ffa500;
   }
   .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    text-decoration: none!important;
+    text-decoration: none !important;
   }
   .p-tabview .p-tabview-nav {
     justify-content: space-evenly;
     background: transparent !important;
     margin-top: 30px;
   }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link, .p-tabview .p-tabview-nav .p-tabview-ink-bar {
-    background: transparent!important;
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link,
+  .p-tabview .p-tabview-nav .p-tabview-ink-bar {
+    background: transparent !important;
   }
   .p-tabview .p-tabview-panels {
     background: transparent !important;
@@ -373,7 +382,8 @@ button.vs-navbar__item {
   .p-datepicker:not(.p-datepicker-inline) {
     background: #080426;
     width: 100%;
-    .p-inputtext, .p-datepicker-trigger.p-button span {
+    .p-inputtext,
+    .p-datepicker-trigger.p-button span {
       color: #ffa500;
     }
     span {
@@ -417,7 +427,7 @@ button.vs-navbar__item {
     align-items: center;
     justify-content: center;
     &:hover {
-      i{
+      i {
         font-size: 4rem;
       }
     }
@@ -427,7 +437,7 @@ button.vs-navbar__item {
     }
     i {
       font-size: 3rem;
-      transition: all .3s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
   }
 }
@@ -435,8 +445,8 @@ button.vs-navbar__item {
 .bg-avatar {
   padding: 2px;
   img {
-    max-height: 100%!important;
-    max-width: 100%!important;
+    max-height: 100% !important;
+    max-width: 100% !important;
     border-radius: 35%;
   }
 }
@@ -446,7 +456,7 @@ button.vs-navbar__item {
 }
 
 .highcharts-container {
-  .highcharts-background  {
+  .highcharts-background {
     fill: none;
   }
   .highcharts-credits {
@@ -458,50 +468,48 @@ button.vs-navbar__item {
   .vs-button__content {
     padding: 0;
   }
-  .btc-chart {
-    .stroke {
-      stroke: #f6911978;
-      stroke-width: 2;
-    }
-    .fill {
-      fill: #f6911978;
-      fill-opacity: 0.5;
-    }
-  }
-  .eth-chart {
-    .stroke {
-      stroke: #50599c78;
-      stroke-width: 2;
-    }
-    .fill {
-      fill: #50599c78;
-      fill-opacity: 0.5;
-    }
-   }
-
-  .ltc-chart {
-    .stroke {
-      stroke: #83838378;
-      stroke-width: 2;
-    }
-    .fill {
-      fill: #83838378;
-      fill-opacity: 0.5;
-    }
-  }
-
-  .dash-chart {
-    .stroke {
-      stroke: #018ee378;
-      stroke-width: 2;
-    }
-    .fill {
-      fill: #018ee378;
-      fill-opacity: 0.5;
-    }
-  }
 }
 
+.btc-chart {
+  .stroke {
+    stroke: #f6911978;
+    stroke-width: 2;
+  }
+  .fill {
+    fill: #f6911978;
+    fill-opacity: 0.5;
+  }
+}
+.eth-chart {
+  .stroke {
+    stroke: #50599c78;
+    stroke-width: 2;
+  }
+  .fill {
+    fill: #50599c78;
+    fill-opacity: 0.5;
+  }
+}
+.ltc-chart {
+  .stroke {
+    stroke: #83838378;
+    stroke-width: 2;
+  }
+  .fill {
+    fill: #83838378;
+    fill-opacity: 0.5;
+  }
+}
+.dash-chart {
+  .stroke {
+    stroke: #018ee378;
+    stroke-width: 2;
+  }
+  .fill {
+    fill: #018ee378;
+    fill-opacity: 0.5;
+  }
+}
 .wallet--container {
   display: grid;
   grid-gap: 20px;
@@ -516,8 +524,8 @@ button.vs-navbar__item {
 }
 
 .op-88 {
-  opacity: .68;
-  &:hover{
+  opacity: 0.68;
+  &:hover {
     opacity: 1;
   }
 }
@@ -527,6 +535,188 @@ button.vs-navbar__item {
   height: 100%;
   width: 100%;
   padding: 20px;
-  display: flex;
-  justify-content: space-between;
+  align-items: center;
+  .breakdown-left {
+    width: 80px;
+    .logo {
+      height: 60px;
+      width: 60px;
+    }
+  }
+  .breakdown-right {
+    width: calc(100% - 80px);
+  }
+  .wallet--top {
+    height: 65%;
+    width: 100%;
+    display: flex;
+    padding: 5px 0;
+    justify-content: space-between;
+    .logo-coin {
+      display: flex;
+      width: 10rem;
+      .coin-name {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        text-align: left;
+        margin-left: 10px;
+        height: 100%;
+        h3,
+        p {
+          margin: 0;
+          color: #fafafa;
+        }
+        p {
+          font-size: 1rem;
+          opacity: 0.8;
+        }
+      }
+    }
+    .coin-balance {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: right;
+      margin-left: 10px;
+      height: 100%;
+      h3,
+      p {
+        margin: 0;
+        color: #fafafa;
+      }
+      p {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+    }
+  }
+  hr {
+    margin: 3px 0;
+    opacity: 0.6;
+  }
+  .wallet-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+  }
+}
+
+.danger {
+  color: #ff8484;
+}
+.success {
+  color: #02ff74;
+}
+.percent,
+.dollar-bal {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.btc-color {
+  color: #ffa500 !important;
+}
+.eth-color {
+  color: #50599c;
+}
+.ltc-color {
+  color: #838383;
+}
+.dash-color {
+  color: #018ee3;
+}
+.text--white {
+  color: #fafafa;
+}
+
+.prod--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 20px;
+  margin-top: 20px;
+  height: calc(100% - 12rem - 120px);
+  &.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    margin-top: 20px;
+    height: calc(100% - 12rem - 120px);
+  }
+  &.grid-category {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: unset;
+    grid-gap: 20px;
+    margin-top: 20px;
+    height: unset;
+    .vs-button__content {
+      display: block;
+      text-align: left;
+      h5 {
+        color: #8383f8;
+      }
+      & > div > * {
+        margin: 0;
+        text-transform: capitalize;
+      }
+    }
+  }
+  &.grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: unset;
+    .grid--item {
+      text-align: left;
+      padding: 10px;
+    }
+    .vs-button__content {
+      justify-content: flex-start;
+      display: block;
+      text-align: left;
+      & > div > * {
+        margin: 0;
+        text-transform: capitalize;
+      }
+    }
+    h4,
+    h3 {
+      margin: 0;
+    }
+    h3 {
+      color: #fdb302;
+      font-size: 0.9rem;
+    }
+  }
+  .grid--item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(31, 41, 116, 0.4);
+    box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    img {
+      height: 4rem;
+    }
+    h4 {
+      margin: 10px 0 0;
+      color: #fafafa;
+    }
+  }
+}
+
+.vs-input-parent--state-dark .vs-input {
+  background: #0a082f !important;
+  color: #fafafa !important;
+}
+
+.vs-input-parent--state-dark .vs-input--has-icon--after ~ .vs-input__label {
+  color: #fafafa;
+}
+
+.vs-input-parent--state-dark .vs-input__icon {
+  background: #0a082f !important;
+  color: #fafafa !important;
 }
